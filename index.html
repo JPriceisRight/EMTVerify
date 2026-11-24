@@ -1,76 +1,23 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EMTVerify — Ground Ambulance Bill Audit | A Module of EMRVerify</title>
-  <meta name="description" content="Audit emergency and non-emergency ground ambulance bills for upcoding, loaded-mileage inflation, and unbundled supplies. Patent Pending · A module of EMRVerify." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            void: '#030508',
-            surface: '#0A0F18',
-            card: '#0F1623',
-            neonGreen: '#00FF9D',
-            electricCyan: '#00E5FF',
-            tiffany: '#40E0D0',
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    body { background-color: #030508; color: #F3F4F6; }
-    .glow-green { box-shadow: 0 0 28px rgba(0, 255, 157, 0.22); }
-    .glow-cyan { box-shadow: 0 0 28px rgba(0, 229, 255, 0.18); }
-    .grid-bg {
-      background-image: radial-gradient(rgba(0, 229, 255, 0.12) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
-  </style>
-</head>
-<body class="antialiased selection:bg-neonGreen selection:text-void">
-
-  <!-- Top Navigation: Balanced Left / Centered Brand / Right CTA -->
+  <!-- Top Navigation: Balanced Left / Center / Right -->
   <header class="sticky top-0 z-50 border-b border-white/10 bg-void/90 backdrop-blur-md">
-    <div class="mx-auto grid max-w-6xl grid-cols-3 items-center px-3.5 py-3 sm:px-6 sm:py-4 md:flex md:justify-between">
-      <!-- Left: Back Pill -->
-      <div class="flex justify-start">
-        <a href="https://emrverify.com" class="inline-flex shrink-0 items-center gap-1 rounded-lg border border-white/15 bg-surface px-2.5 py-1.5 font-mono text-[11px] font-semibold text-electricCyan transition hover:border-electricCyan sm:px-3 sm:text-xs">
-          ← EMRVerify.com
-        </a>
-      </div>
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6 sm:py-4">
+      <a href="https://emrverify.com" class="inline-flex shrink-0 items-center gap-1 rounded-lg border border-white/15 bg-surface px-2.5 py-1.5 font-mono text-[11px] font-semibold text-electricCyan transition hover:border-electricCyan sm:px-3 sm:text-xs">
+        ← EMRVerify.com
+      </a>
 
-      <!-- Center: EMTVerify Brand -->
-      <div class="flex justify-center md:ml-4 md:mr-auto">
-        <a href="#" class="flex items-center">
-          <span class="text-base font-extrabold tracking-tight text-white sm:text-lg">EMT<span class="text-neonGreen">Verify</span></span>
-        </a>
-      </div>
+      <a href="#" class="flex items-center md:ml-3 md:mr-auto">
+        <span class="text-base font-extrabold tracking-tight text-white sm:text-lg">EMT<span class="text-neonGreen">Verify</span></span>
+      </a>
 
-      <!-- Desktop Links -->
       <nav class="hidden items-center gap-7 text-sm font-medium text-gray-300 md:flex md:mr-6">
         <a href="#steps" class="transition hover:text-electricCyan">How It Works</a>
         <a href="#modules" class="transition hover:text-electricCyan">9 Checks</a>
         <a href="#estimator" class="transition hover:text-electricCyan">Bill Check</a>
       </nav>
 
-      <!-- Right: Audit a Bill CTA -->
-      <div class="flex justify-end">
-        <a href="#waitlist" class="shrink-0 rounded-lg bg-neonGreen px-3 py-1.5 text-xs font-bold text-void transition hover:brightness-110 sm:px-4 sm:py-2 sm:text-sm">
-          Audit a Bill
-        </a>
-      </div>
+      <a href="#waitlist" class="shrink-0 rounded-lg bg-neonGreen px-3 py-1.5 text-xs font-bold text-void transition hover:brightness-110 sm:px-4 sm:py-2 sm:text-sm">
+        Audit a Bill
+      </a>
     </div>
   </header>
 
