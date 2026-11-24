@@ -1,4 +1,47 @@
-<!-- Top Navigation: Balanced Left / Center / Right -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMTVerify — Ground Ambulance Bill Audit | A Module of EMRVerify</title>
+  <meta name="description" content="Audit emergency and non-emergency ground ambulance bills for upcoding, loaded-mileage inflation, and unbundled supplies. Patent Pending · A module of EMRVerify." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            void: '#030508',
+            surface: '#0A0F18',
+            card: '#0F1623',
+            neonGreen: '#00FF9D',
+            electricCyan: '#00E5FF',
+            tiffany: '#40E0D0',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #030508; color: #F3F4F6; }
+    .glow-green { box-shadow: 0 0 28px rgba(0, 255, 157, 0.22); }
+    .glow-cyan { box-shadow: 0 0 28px rgba(0, 229, 255, 0.18); }
+    .grid-bg {
+      background-image: radial-gradient(rgba(0, 229, 255, 0.12) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-neonGreen selection:text-void">
+
+  <!-- Top Navigation: Balanced Left / Center / Right -->
   <header class="sticky top-0 z-50 border-b border-white/10 bg-void/90 backdrop-blur-md">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:px-6 sm:py-4">
       <a href="https://emrverify.com" class="inline-flex shrink-0 items-center gap-1 rounded-lg border border-white/15 bg-surface px-2.5 py-1.5 font-mono text-[11px] font-semibold text-electricCyan transition hover:border-electricCyan sm:px-3 sm:text-xs">
@@ -21,8 +64,7 @@
     </div>
   </header>
 
-
-  <!-- Hero Section (Pulled Up for Mobile Above-the-Fold Fit) -->
+  <!-- Hero Section -->
   <section class="relative overflow-hidden border-b border-white/10 grid-bg">
     <div class="mx-auto max-w-6xl px-5 pt-7 pb-14 sm:px-6 sm:py-20 md:py-24">
       <div class="flex flex-wrap items-center gap-2">
@@ -107,203 +149,4 @@
         <div class="flex items-center justify-between border-b border-white/10 pb-4">
           <div>
             <h3 class="text-lg font-bold text-white">Quick Ambulance Bill Flag Check</h3>
-            <p class="text-xs text-gray-400">Benchmark HCPCS A0-series &amp; loaded mileage (A0425)</p>
-          </div>
-          <span class="rounded bg-neonGreen/15 px-2.5 py-1 font-mono text-xs font-semibold text-neonGreen">LIVE CHECK</span>
-        </div>
-
-        <form id="auditForm" class="mt-6 space-y-4">
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400">Transport Level Billed</label>
-            <select id="serviceLevel" class="mt-1.5 w-full rounded-lg border border-white/15 bg-void px-3.5 py-2.5 text-sm text-white focus:border-neonGreen focus:outline-none">
-              <option value="bls">BLS Emergency (HCPCS A0429) — ~$650–$1,100 benchmark</option>
-              <option value="als1" selected>ALS1 Emergency (HCPCS A0427) — ~$950–$1,550 benchmark</option>
-              <option value="als2">ALS2 Specialty/Critical (HCPCS A0433) — ~$1,350–$2,100 benchmark</option>
-            </select>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400">Total Billed ($)</label>
-              <input id="billedAmount" type="number" value="2450" min="100" step="50" class="mt-1.5 w-full rounded-lg border border-white/15 bg-void px-3.5 py-2.5 font-mono text-sm text-white focus:border-neonGreen focus:outline-none" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400">Loaded Miles (A0425)</label>
-              <input id="miles" type="number" value="8" min="1" max="200" class="mt-1.5 w-full rounded-lg border border-white/15 bg-void px-3.5 py-2.5 font-mono text-sm text-white focus:border-neonGreen focus:outline-none" />
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2.5 pt-1">
-            <input id="outOfNetwork" type="checkbox" checked class="h-4 w-4 rounded border-white/20 bg-void text-neonGreen focus:ring-neonGreen" />
-            <label for="outOfNetwork" class="text-xs text-gray-300">911 emergency dispatch / Out-of-network balance bill</label>
-          </div>
-
-          <button type="submit" class="w-full rounded-xl bg-electricCyan py-3 text-sm font-extrabold text-void transition hover:brightness-110">
-            Calculate Potential Overcharge
-          </button>
-        </form>
-
-        <div id="auditResult" class="mt-5 rounded-xl border border-neonGreen/30 bg-void/90 p-4">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold uppercase text-gray-400">Estimated Variance Flag</span>
-            <span id="varianceBadge" class="font-mono text-sm font-bold text-neonGreen">+$1,070 Above Benchmark</span>
-          </div>
-          <p id="varianceDetail" class="mt-2 text-xs text-gray-300 leading-relaxed">
-            High likelihood of balance-billing markup or unbundled ancillary charges. Request your itemized run report (PCR) under 45 CFR § 164.524 before paying.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- The 9 Detection Modules -->
-  <section id="modules" class="mx-auto max-w-6xl px-5 py-16 border-b border-white/10 sm:px-6 sm:py-20">
-    <span class="font-mono text-xs font-semibold uppercase tracking-widest text-neonGreen">02 — The Detection Layer</span>
-    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Nine Checks Mapped to Ambulance Billing Errors</h2>
-
-    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-neonGreen">UPCODE · HCPCS A0-series</span>
-        <p class="mt-2 text-sm text-gray-300">Basic life support (BLS) transport billed at an advanced life support (ALS) rate.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-electricCyan">MILEAGE · A0425 units</span>
-        <p class="mt-2 text-sm text-gray-300">Loaded miles billed exceed the actual point-to-point distance to the hospital.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-tiffany">LOS · Run report vs. bill</span>
-        <p class="mt-2 text-sm text-gray-300">Level of service not supported by what the Patient Care Report (PCR) documents.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-neonGreen">SUPPLIES · Supply line items</span>
-        <p class="mt-2 text-sm text-gray-300">Items billed separately that are already bundled into the base transport rate.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-electricCyan">GEO · ZIP designation</span>
-        <p class="mt-2 text-sm text-gray-300">Rural or super-rural mileage bonus improperly applied to an urban trip.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-tiffany">MODIFIER · Modifier pairs</span>
-        <p class="mt-2 text-sm text-gray-300">Origin/destination modifier used to bypass a payer coverage edit.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-neonGreen">DUPLICATE · Claim lines</span>
-        <p class="mt-2 text-sm text-gray-300">The same transport billed twice across primary/secondary statements.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-electricCyan">INVALID · HCPCS</span>
-        <p class="mt-2 text-sm text-gray-300">Code billed doesn't exist or doesn't apply to ground ambulance transport.</p>
-      </div>
-      <div class="rounded-xl border border-white/10 bg-surface p-5">
-        <span class="font-mono text-xs font-bold text-tiffany">DOC-GAP · Records request</span>
-        <p class="mt-2 text-sm text-gray-300">No run report on file to substantiate the billed level of care.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Early Access Form -->
-  <section id="waitlist" class="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-20">
-    <div class="rounded-2xl border border-neonGreen/30 bg-gradient-to-br from-surface via-card to-void p-7 sm:p-12">
-      <div class="grid gap-8 lg:grid-cols-3 lg:items-center">
-        <div class="lg:col-span-2">
-          <span class="font-mono text-xs font-semibold uppercase tracking-widest text-neonGreen">EMTVerify · Add-On Module</span>
-          <h2 class="mt-3 text-2xl font-extrabold text-white sm:text-3xl">Join the Ground Ambulance Audit Beta</h2>
-          <p class="mt-3 text-sm text-gray-300 leading-relaxed">
-            Built on the same patent-pending rules engine as <a href="https://emrverify.com" class="text-electricCyan underline">EMRVerify.com</a>. Submit your email to get early access when the ground ambulance audit module opens.
-          </p>
-        </div>
-
-        <form id="waitlistForm" name="emtverify-early-access" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-3 rounded-xl border border-white/10 bg-void/90 p-5">
-          <input type="hidden" name="form-name" value="emtverify-early-access" />
-          <p class="hidden">
-            <label>Don’t fill this out: <input name="bot-field" /></label>
-          </p>
-          <p class="text-sm font-bold text-white">Request Early Access</p>
-          <input id="waitlistEmail" type="email" name="email" required placeholder="you@domain.com" class="w-full rounded-lg border border-white/15 bg-surface px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:border-neonGreen focus:outline-none" />
-          <button id="waitlistBtn" type="submit" class="w-full rounded-lg bg-neonGreen py-2.5 text-sm font-extrabold text-void transition hover:brightness-110">
-            Notify Me
-          </button>
-          <p id="waitlistStatus" class="hidden text-xs font-medium text-neonGreen"></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="border-t border-white/10 bg-void pt-10 pb-20 sm:pb-10">
-    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 text-xs text-gray-500 sm:flex-row sm:px-6">
-      <div>
-        <strong class="text-gray-300">EMTVerify</strong> · emtverify.com — A module of <a href="https://emrverify.com" class="text-electricCyan hover:underline">EMRVerify</a> · Price Royalty Publishing LLC d/b/a EMTVerify · Jeseka Price, Founder
-      </div>
-      <div>
-        U.S. Provisional Patent Application Nos. 64/126,699 &amp; 64/135,093
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // 1. Interactive Bill Flag Calculator
-    const form = document.getElementById('auditForm');
-    const badge = document.getElementById('varianceBadge');
-    const detail = document.getElementById('varianceDetail');
-    const baseRates = { bls: 820, als1: 1220, als2: 1700 };
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const level = document.getElementById('serviceLevel').value;
-      const billed = parseFloat(document.getElementById('billedAmount').value) || 0;
-      const miles = parseFloat(document.getElementById('miles').value) || 0;
-      const oon = document.getElementById('outOfNetwork').checked;
-      const benchmark = baseRates[level] + (miles * 20);
-      const diff = Math.round(billed - benchmark);
-
-      if (diff > 150) {
-        badge.textContent = `+$${diff.toLocaleString()} Above Benchmark`;
-        badge.className = 'font-mono text-sm font-bold text-neonGreen';
-        detail.textContent = oon
-          ? 'High likelihood of out-of-network balance-billing markup or level-of-service upcoding. Request your itemized Patient Care Report (PCR) under 45 CFR § 164.524.'
-          : 'Statement exceeds typical regional Medicare/commercial benchmarks for this HCPCS level and mileage.';
-      } else {
-        badge.textContent = 'Within Expected Range';
-        badge.className = 'font-mono text-sm font-bold text-electricCyan';
-        detail.textContent = 'Total charge aligns closely with standard regional transport benchmarks, though line-item supply unbundling can still be verified via PCR review.';
-      }
-    });
-
-    // 2. Netlify Forms Handler + Mailto Fallback
-    const waitlistForm = document.getElementById('waitlistForm');
-    const waitlistBtn = document.getElementById('waitlistBtn');
-    const waitlistStatus = document.getElementById('waitlistStatus');
-
-    waitlistForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const emailVal = document.getElementById('waitlistEmail').value.trim();
-      waitlistBtn.disabled = true;
-      waitlistBtn.textContent = 'Submitting...';
-
-      const formData = new FormData(waitlistForm);
-      try {
-        const response = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData).toString(),
-        });
-
-        if (response.ok) {
-          waitlistStatus.textContent = '✓ You’re on the EMTVerify beta list! We’ll email you as soon as early access opens.';
-          waitlistStatus.className = 'text-xs font-medium text-neonGreen';
-          waitlistForm.reset();
-        } else {
-          throw new Error('Form detection not enabled yet');
-        }
-      } catch (err) {
-        waitlistStatus.innerHTML = '✓ Beta request ready—<a href="mailto:jeseka@emrverify.com?subject=EMTVerify%20Beta%20Access&body=Please%20add%20' + encodeURIComponent(emailVal) + '%20to%20the%20EMTVerify%20beta%20list." class="underline text-neonGreen">tap here to send directly</a> (or enable Form Detection in Netlify).';
-        waitlistStatus.className = 'text-xs font-medium text-electricCyan';
-      } finally {
-        waitlistBtn.disabled = false;
-        waitlistBtn.textContent = 'Notify Me';
-      }
-    });
-  </script>
-</body>
-</html>
+            <p class="text-xs text-gray-400">Benchmark HCPCS A0-series &amp; loaded mileage
